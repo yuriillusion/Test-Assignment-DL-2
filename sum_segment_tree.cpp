@@ -1,5 +1,4 @@
 #include "sum_segment_tree.h"
-#include <vector>
 
 void SumSegmentTree::Initialize(const std::vector<int>& initial_configuration) {
   size_t size = initial_configuration.size();
@@ -10,7 +9,7 @@ void SumSegmentTree::Initialize(const std::vector<int>& initial_configuration) {
 void SumSegmentTree::BuildingTraversal(const std::vector<int>& initial_configuration,
   int index, int left_border, int right_border) {
   if (left_border < right_border) {
-    if (left_border +1 == right_border) {
+    if (left_border == right_border - 1) {
       tree_[index].value = initial_configuration[left_border];
     } else {
       int middle = Middle(left_border, right_border);

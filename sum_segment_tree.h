@@ -1,4 +1,5 @@
 #pragma once
+
 #include <vector>
 
 class SumSegmentTree {
@@ -6,6 +7,7 @@ public:
   void Initialize(const std::vector<int>& initial_configuration);
   int Sum(int left, int right);
   void Modify(int index);
+  void ApplyOperation(std::string operation, std::ostream& out);
 
 private:
   struct Node {

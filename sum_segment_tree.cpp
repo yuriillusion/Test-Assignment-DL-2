@@ -3,7 +3,7 @@
 void SumSegmentTree::Initialize(const std::vector<int>& initial_configuration) {
   size_t size = initial_configuration.size();
   tree_.resize(kMemoryCoefficient * size);
-  BuildingTraversal(initial_configuration, 1, 0, size);
+  BuildingTraversal(initial_configuration, kRootIndex, 0, size);
 }
 
 void SumSegmentTree::BuildingTraversal(const std::vector<int>& initial_configuration,
@@ -25,7 +25,7 @@ void SumSegmentTree::BuildingTraversal(const std::vector<int>& initial_configura
 }
 
 int SumSegmentTree::Sum(int left, int right) {
-  return SummingTraversal(1, left, right);
+  return SummingTraversal(kRootIndex, left, right);
 }
 
 int SumSegmentTree::SummingTraversal(int index, int left, int right) {
@@ -40,7 +40,7 @@ int SumSegmentTree::SummingTraversal(int index, int left, int right) {
 }
 
 void SumSegmentTree::Modify(int index) {
-  ModifiyngTraversal(1, index);
+  ModifiyngTraversal(kRootIndex, index);
 }
 
 int SumSegmentTree::ModifiyngTraversal(int index, int destination) {
@@ -54,10 +54,11 @@ int SumSegmentTree::ModifiyngTraversal(int index, int destination) {
     }
   }
   int increment;
+  int son_index = index << 1;
   if (destination >= tree_[index].left && destination < tree_[index].middle) {
-    increment = ModifiyngTraversal(index << 1, destination);
+    increment = ModifiyngTraversal(son_index, destination);
   } else {
-    increment = ModifiyngTraversal((index << 1) + 1, destination);
+    increment = ModifiyngTraversal(son_index + 1, destination);
   }
   tree_[index].value += increment;
   return increment;

@@ -3,7 +3,7 @@
 void SumSegmentTree::Initialize(const std::vector<int>& initial_configuration) {
   int size = initial_configuration.size();
   tree_.resize(kMemoryCoefficient * size);
-  int height = GetPowerOf2(size);
+  int height = UpperIntegerLog2(size);
   lower_level_index_ = 1 << height;
   for (int i = 0; i < size; i++) {
     tree_[lower_level_index_ + i] = initial_configuration[i];
@@ -42,14 +42,15 @@ int SumSegmentTree::Sum(int left, int right) {
 
 void SumSegmentTree::Modify(int index) {
   int increment;
-  if (tree_[lower_level_index_ + index] == 0) {
-    tree_[lower_level_index_ + index] = 1;
+  int current_index = lower_level_index_ + index;
+  if (tree_[current_index] == 0) {
+    tree_[current_index] = 1;
     increment = 1;
   } else {
-    tree_[lower_level_index_ + index] = 0;
+    tree_[current_index] = 0;
     increment = -1;
   }
-  int current_index = (lower_level_index_ + index) >> 1;
+  current_index >>= 1;
   while (current_index > 0) {
     tree_[current_index] += increment;
     current_index >>= 1;
@@ -60,7 +61,7 @@ bool SumSegmentTree::IsOdd(const int number) {
   return (number & 1) == 1;
 }
 
-int SumSegmentTree::GetPowerOf2(int number) {
+int SumSegmentTree::UpperIntegerLog2(int number) {
   int power = 0;
   number -= 1;
   while (number) {

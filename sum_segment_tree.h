@@ -18,5 +18,5 @@ private:
   int lower_level_index_;
 
   bool IsOdd(const int number);
-  int GetPowerOf2(int number);
+  int UpperIntegerLog2(int number);
 };

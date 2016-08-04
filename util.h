@@ -3,8 +3,6 @@
 #include "sum_segment_tree.h"
 #include <iostream>
 #include <vector>
-#include <string>
-#include <sstream>
 
 std::vector<int> ReadData(std::istream& in);
 std::string ReadOperation(std::istream& in);

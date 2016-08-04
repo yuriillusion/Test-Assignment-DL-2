@@ -16,7 +16,6 @@ private:
 
   std::vector<int> tree_;
   int lower_level_index_;
-  //size_t lower_level_size_;
 
   bool IsOdd(const int number);
   int GetPowerOf2(int number);

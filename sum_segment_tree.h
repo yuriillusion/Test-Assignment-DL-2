@@ -11,23 +11,14 @@ public:
   void ApplyOperation(std::string operation, std::ostream& out);
 
 private:
-  // Contains sum of elements x[i] of initial set, where i is in [left, right)
-  struct Node {
-    int value;
-    int left;
-    int right;
-    int middle;
-  };
-
   // Segment tree on n elements can be placed in 4n memory units
   const static int kMemoryCoefficient = 4;
   const static int kRootIndex = 1;
 
-  std::vector<Node> tree_;
+  std::vector<int> tree_;
+  int lower_level_index_;
+  size_t lower_level_size_;
 
-  void BuildingTraversal(const std::vector<int>& initial_configuration,
-    int index, int left_border, int right_border);
-  int SummingTraversal(int index, int left, int right);
-  int ModifiyngTraversal(int index, int value);
-  int Middle(int left, int right);
+  bool IsOdd(const int number);
+  int GetPowerOf2(int number);
 };

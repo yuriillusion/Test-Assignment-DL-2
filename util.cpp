@@ -31,7 +31,7 @@ void ApplyOperation(const std::string& operation, std::ostream& out, SumSegmentT
     case 2: {
       int left, right;
       parser >> left >> right;
-      out << tree.Sum(left - 1, right) << std::endl;
+      out << tree.Sum(left - 1, right - 1) << std::endl;
       break;
     }
     default: {

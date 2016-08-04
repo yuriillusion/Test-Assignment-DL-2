@@ -8,7 +8,6 @@ public:
   int Sum(int left, int right);
   // Changes 1 to 0 and vice versa
   void Modify(int index);
-  void ApplyOperation(std::string operation, std::ostream& out);
 
 private:
   // Segment tree on n elements can be placed in 4n memory units
@@ -17,7 +16,7 @@ private:
 
   std::vector<int> tree_;
   int lower_level_index_;
-  size_t lower_level_size_;
+  //size_t lower_level_size_;
 
   bool IsOdd(const int number);
   int GetPowerOf2(int number);

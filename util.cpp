@@ -10,27 +10,19 @@ std::vector<int> ReadData(std::istream& in) {
   return data;
 }
 
-std::string ReadOperation(std::istream& in) {
-  std::string operation;
-  std::getline(in, operation);
-  return operation;
-}
-
-void ApplyOperation(const std::string& operation, std::ostream& out, SumSegmentTree& tree) {
-  std::stringstream parser;
-  parser << operation;
-  int operation_number = 0;
-  parser >> operation_number;
+void ApplyOperation(std::istream& in, std::ostream& out, SumSegmentTree& tree) {
+  int operation_number;
+  in >> operation_number;
   switch (operation_number) {
     case 1: {
       int index = 0;
-      parser >> index;
+      in >> index;
       tree.Modify(index - 1);
       break;
     }
     case 2: {
       int left, right;
-      parser >> left >> right;
+      in >> left >> right;
       out << tree.Sum(left - 1, right - 1) << std::endl;
       break;
     }
@@ -40,11 +32,6 @@ void ApplyOperation(const std::string& operation, std::ostream& out, SumSegmentT
   }
 }
 
-void Iterate(std::istream& in, std::ostream& out, SumSegmentTree& tree) {
-  std::string operation = ReadOperation(in);
-  ApplyOperation(operation, out, tree);
-}
-
 void MainLoop(std::istream& in, std::ostream& out) {
   std::vector<int> initial_configuration;
   initial_configuration = ReadData(in);
@@ -52,8 +39,7 @@ void MainLoop(std::istream& in, std::ostream& out) {
   tree.Initialize(initial_configuration);
   int number_of_operations;
   in >> number_of_operations;
-  in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
   for (int i = 0; i < number_of_operations; i++) {
-    Iterate(in, out, tree);
+    ApplyOperation(in, out, tree);
   }
 }

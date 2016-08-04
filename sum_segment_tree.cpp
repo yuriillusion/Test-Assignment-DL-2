@@ -5,23 +5,18 @@ void SumSegmentTree::Initialize(const std::vector<int>& initial_configuration) {
   tree_.resize(kMemoryCoefficient * size);
   int height = GetPowerOf2(size);
   lower_level_index_ = 1 << height;
-  lower_level_size_ = 1 << height;
   for (int i = 0; i < size; i++) {
     tree_[lower_level_index_ + i] = initial_configuration[i];
   }
   int level_index = lower_level_index_ >> 1;
-  int level_size = lower_level_size_ >> 1;
   while (level_index > 0) {
-    int last_index = level_index + level_size;
+    int last_index = level_index << 1;
     for (int i = level_index; i < last_index; i++) {
       tree_[i] = tree_[(i << 1)] + tree_[(i << 1) + 1];
     }
     level_index >>= 1;
-    level_size >>= 1;
   }
 }
-
-#include <iostream>
 
 int SumSegmentTree::Sum(int left, int right) {
   int sum = 0;
